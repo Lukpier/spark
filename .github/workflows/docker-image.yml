@@ -25,5 +25,5 @@ jobs:
     - name: Build the Docker image
       run: |
         TAG=$(date +%Y%m%d)
-        docker build . --file Dockerfile --build_args base_img=pilillo/spark:latest --tag ${{ secrets.DOCKERHUB_USER }}/spark:${TAG}
+        docker build . --file Dockerfile --build-args base_img=pilillo/spark:latest --tag ${{ secrets.DOCKERHUB_USER }}/spark:${TAG}
         docker push ${{ secrets.DOCKERHUB_USER }}/spark:${TAG}
