@@ -1,5 +1,5 @@
 # Spark
 
-Fork from the official Spark Docker image with clients for various data lakes.
+Fork from pilillo/spark repository containing a Spark base image for running on K8s. 
 
-This is meant to be used as history server or Spark base image for K8s (since you likely need a distributed cache).
+This adds python support whereas pyspark job need to be launched.
