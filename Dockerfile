@@ -11,11 +11,6 @@ ARG spark_distro=spark-${spark_version}-bin-hadoop${hadoop_version}
 ARG spark_artifact=${spark_distro}.tgz
 ARG spark_download_url=https://downloads.apache.org/spark/spark-${spark_version}/${spark_artifact}
 
-# hive 1.1.0 dependencies for enabling hive support to old hadoop cluster(s)
-ARG hive_metastore_url=https://repo1.maven.org/maven2/org/apache/hive/hive-metastore/1.1.0/hive-metastore-1.1.0.jar
-ARG hive_common_url=https://repo1.maven.org/maven2/org/apache/hive/hive-common/1.1.0/hive-common-1.1.0.jar
-ARG hive_exec_url=https://repo1.maven.org/maven2/org/apache/hive/hive-exec/1.1.0/hive-exec-1.1.0.jar
-ARG hive_serde_url=https://repo1.maven.org/maven2/org/apache/hive/hive-serde/1.1.0/hive-serde-1.1.0.jar 
 
 WORKDIR /
 
@@ -33,13 +28,6 @@ RUN wget ${spark_download_url} && \
     tar -xf ${spark_artifact} && \
     mv /${spark_distro}/python ${SPARK_HOME}/python && \
     rm /${spark_artifact}
-
-ADD ${hive_metastore_url} ${SPARK_HOME}/jars
-ADD ${hive_common_url} ${SPARK_HOME}/jars
-ADD ${hive_exec_url} ${SPARK_HOME}/jars
-ADD ${hive_serde_url} ${SPARK_HOME}/jars
-
-RUN chmod -R ag+rx ${SPARK_HOME}/jars
 
 WORKDIR /opt/spark/work-dir
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
