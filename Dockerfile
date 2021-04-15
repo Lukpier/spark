@@ -26,7 +26,7 @@ RUN apt-get update && \
 
 RUN wget ${spark_download_url} && \
     tar -xf ${spark_artifact} && \
-    mv /${spark_distro}/python ${SPARK_HOME}/python && \
+    mv /${spark_distro}/python ${SPARK_HOME}/ && \
     rm /${spark_artifact}
 
 WORKDIR /opt/spark/work-dir
