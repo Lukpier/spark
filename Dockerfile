@@ -32,9 +32,8 @@ RUN wget ${spark_download_url} && \
     rm /${spark_artifact}
     
 RUN wget ${conda_url} -O ~/miniconda.sh && \
-    bash ~/miniconda.sh -b -p $HOME/miniconda && \
-    echo PATH=~/anaconda3/bin:$PATH >> $HOME/.bashrc && \
-    eval "$($HOME/miniconda/bin/conda shell.bash hook)" && \
+    bash ~/miniconda.sh -b -p ${SPARK_HOME}/work-dir/miniconda && \
+    eval "$(${SPARK_HOME}/work-dir/miniconda/bin/conda shell.bash hook)" && \
     conda init
 
 WORKDIR /opt/spark/work-dir
