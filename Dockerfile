@@ -10,6 +10,8 @@ ARG spark_version=3.1.1
 ARG spark_distro=spark-${spark_version}-bin-hadoop${hadoop_version}
 ARG spark_artifact=${spark_distro}.tgz
 ARG spark_download_url=https://downloads.apache.org/spark/spark-${spark_version}/${spark_artifact}
+ARG conda_url=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
 
 
 WORKDIR /
@@ -28,6 +30,11 @@ RUN wget ${spark_download_url} && \
     tar -xf ${spark_artifact} && \
     mv /${spark_distro}/python ${SPARK_HOME}/ && \
     rm /${spark_artifact}
+    
+RUN wget ${conda_url} -O ~/miniconda.sh && \
+    bash ~/miniconda.sh -b -p $HOME/miniconda && \
+    eval "$($HOME/miniconda/bin/conda shell.bash hook)" && \
+    conda init
 
 WORKDIR /opt/spark/work-dir
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
