@@ -33,6 +33,7 @@ RUN wget ${spark_download_url} && \
     
 RUN wget ${conda_url} -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $HOME/miniconda && \
+    echo PATH=~/anaconda3/bin:$PATH >> $HOME/.bashrc && \
     eval "$($HOME/miniconda/bin/conda shell.bash hook)" && \
     conda init
 
