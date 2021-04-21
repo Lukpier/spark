@@ -31,9 +31,8 @@ RUN wget ${spark_download_url} && \
     rm /${spark_artifact}
     
 RUN wget ${conda_url} -O ~/miniconda.sh && \
-    bash ~/miniconda.sh -b -p ${SPARK_HOME}/work-dir/miniconda && \
-    rm ~/minconda.sh
-
+    bash ~/miniconda.sh -b -p ${SPARK_HOME}/work-dir/miniconda
+    
 WORKDIR /opt/spark/work-dir
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
 
