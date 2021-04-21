@@ -13,7 +13,6 @@ ARG spark_download_url=https://downloads.apache.org/spark/spark-${spark_version}
 ARG conda_url=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
 
-
 WORKDIR /
 
 # Reset to root to run installation tasks
@@ -21,7 +20,7 @@ USER 0
 
 RUN mkdir ${SPARK_HOME}/python
 RUN apt-get update && \
-    apt install -y curl python3 python3-pip && \
+    apt install -y python3 python3-pip && \
     pip3 install --upgrade pip setuptools && \
     # Removed the .cache to save space
     rm -r /root/.cache && rm -rf /var/cache/apt/*
@@ -33,8 +32,7 @@ RUN wget ${spark_download_url} && \
     
 RUN wget ${conda_url} -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p ${SPARK_HOME}/work-dir/miniconda && \
-    eval "$(${SPARK_HOME}/work-dir/miniconda/bin/conda shell.bash hook)" && \
-    conda init
+    rm ~/minconda.sh
 
 WORKDIR /opt/spark/work-dir
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
